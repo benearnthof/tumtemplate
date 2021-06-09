@@ -1,0 +1,71 @@
+\documentclass[
+	class=book,
+%	docmode=draft, 				% draft / [final]
+	language=english, 		% english / [german]
+%	externalize=false, 		% [false] / true
+% fontfamily=lmr, 			% [lmr] / lmss / helvet / times
+%	fontsize=10pt, 				% 9pt / [10pt] / 11pt / 12pt
+	linkhighlight=text, 	% off / [border] / text / ocrtext
+%	shortglossary=true, 	% [false] / true
+]{ees}
+
+%----- Information ---------------------------------
+\settopic{Short Report}
+\settitle{Introduction to the EES-{\LaTeX} Template}
+\setsubtitle{Formatting Tips and Guidelines}
+\setauthor{Axel Durdel}
+%\setsupervisor{First- Surename} % Only set supervisor if necessary
+\setdate{\today}
+\setkeywords{LaTeX, Formatting, EES-Template}
+\setversion{0.1}			% Only visible in docmode=draft
+
+\addbibresource{./LIST/literature.bib} 		% Add bibliographic entries
+\input{./LIST/hyphenation.tex}						% Add hyphenation definitions
+\loadglsentries{./LIST/glossaries.tex}		% Add glossary definitions
+\loadglsentries{./LIST/acronyms.tex}			% Add acronym definitions
+\loadglsentries{./LIST/symbols.tex}				% Add symbol definitions
+
+
+\input{TEX/_snippets.tex}
+
+
+\begin{document}
+	%\input{TEX/debug}
+	\input{TEX/MajorChanges}
+	
+	\listoftodos 	% Print list of todo's
+	\maketitle 		% Print titlepage
+	
+	\begin{prefix}
+		\input{TEX/Impress}
+	\end{prefix}
+	
+	\tableofcontents[] % Print table of contents  ( optional: \tableofcontents[hidelinks] )
+
+	\printgloss	% Print glossary - automatically ignored with shortglossary
+	\printacro		% Print acronyms - automatically ignored with shortglossary
+	\printsym		% Print symbols  - automatically ignored with shortglossary
+	
+	\begin{mainpart}
+		\input{TEX/WhatIsLatex}
+		\input{TEX/MyFirstLatexDocument}
+		\input{TEX/Introduction}
+		\input{TEX/Installation}
+		\input{TEX/Usage}
+		\input{TEX/Formatting}
+	\end{mainpart}
+	
+	%\nocite{*} 					% To cite all entries in the used bib data file
+	\printbibliography 		% Print literature
+	
+	\listoffigures 				% Print list of figures
+	\listoftables					% Print list of tables
+	\lstlistoflistings 		% Print list of listings
+	
+	\begin{annex}
+		\input{TEX/Packages}
+		\input{TEX/UserXML}
+		\input{TEX/Samples}
+	\end{annex}
+	
+\end{document}
