@@ -1,0 +1,19 @@
+\cleardoublepage
+\section*{Changes at a Glance}
+\begin{itemize}
+	\item The class \classfile combines the old classes \textit{ees-book}, \textit{ees-report}, \textit{ees-protocol} and \textit{ees-article}. For letters, presentations and posters the old versions must be used (see archive).
+	\item Only the engine {\LuaLaTeX} can be used. In particular, {\LuaLaTeX} offers advantages over the older engine {pdf\LaTeX} when it comes to the outsourcing of images (\texttt{externalize=true}) and the choice of the font (\texttt{fontfamiliy=}).
+	\item Extensive revision of the class definition (packages, standardisation, etc.) carried out. Compatibility with existing \texttt{.tex} files of the old classes is not necessarily given.
+\end{itemize}
+
+
+\section*{Preliminary Note}
+\begin{itemize}
+	\item If problems occur when compiling with the new class, this could have the following reasons and solutions
+	\begin{itemize}
+		\item MiKTeX distribution outdated \\ \quad $\rightarrow$ Update packages 
+		\item Processor settings not set correctly (e.g. pdflatex vs. lualatex) \\ \quad $\rightarrow$ Check settings
+		\item $\rightarrow$ Alternatively, uninstall the distribution and editor, delete old temporary files, reinstall. (It makes sense to make a backup of user settings such as the output profiles in \gls*{gls:txc} in advance).
+	\end{itemize}
+	\item For questions and suggestions please contact \href{mailto:axel.durdel@tum.de}{axel.durdel@tum.de}
+\end{itemize}

@@ -1,0 +1,198 @@
+%%%----- Custum Commands ------------------------------
+\newcommand{\eg}{\mbox{e.g.}\xspace}
+\newcommand{\ie}{\mbox{i.e.}\xspace}
+\newcommand{\etc}{\mbox{etc.}\xspace}
+
+\newcommand{\matlab}{MATLAB\textregistered\xspace}
+\newcommand{\tum}{Technische Universität München\xspace}
+
+\newcommand{\mainfilename}{EES\_xyz}
+\newcommand{\mainfile}{\texttt{\mainfilename.tex}\xspace}
+\newcommand{\classfile}{\texttt{ees.cls}\xspace}
+\newcommand{\acrfile}{\texttt{./LIST/acronyms.tex}\xspace}
+\newcommand{\glofile}{\texttt{./LIST/glossaries.tex}\xspace}
+\newcommand{\symfile}{\texttt{./LIST/symbols.tex}\xspace}
+\newcommand{\litfile}{\texttt{./LIST/literature.bib}\xspace}
+\newcommand{\hypfile}{\texttt{./LIST/hyphenation.tex}\xspace}
+
+\newcommand{\logodir}{\texttt{./logo/}\xspace}
+\newcommand{\imgdir}{\texttt{./IMG/}\xspace}
+\newcommand{\listdir}{\texttt{./LIST/}\xspace}
+\newcommand{\texdir}{\texttt{./TEX/}\xspace}
+\newcommand{\tikzdir}{\texttt{./TIKZ/}\xspace}
+
+\newcommand{\Latex}{\LaTeX\xspace}
+
+\providecommand{\ph}[1]{\relax}
+%\renewcommand{\ph}[1]{\textlangle#1\textrangle\xspace}				% placeholder.
+\renewcommand{\ph}[1]{{\normalfont\guilsinglleft}#1{\normalfont\guilsinglright}\xspace}	% placeholder.
+
+
+\usepackage[utf8]{luainputenc}
+
+\usepackage{blindtext}
+
+\usepackage{textalpha}
+
+\usepackage{metalogo} % For use of \XeLaTeX
+
+
+\lstset{
+	style=defaultCode,
+	language=latex,
+}
+
+\lstdefinestyle{mweCode}{
+	style=defaultCode,
+	basicstyle=\ttfamily\scriptsize,
+	numbers=none,
+}
+
+\newtheorem{definition}{Definition}
+\newcommand{\definitionautorefname}{Definition}
+
+% https://tex.stackexchange.com/a/39020
+\renewcommand{\bottomfraction}{0.5} % (default 0.3) maximum size of the bottom area for float environments
+
+\DeclareSIUnit{\Crate}{C\textsubscript{rate}}
+
+
+
+% Allows 'drop caps' like in IEEE papers
+\RequirePackage{lettrine}
+\renewcommand{\LettrineFontHook}{\fontseries{bx}}	% Change font to bold series (italic with \fontshape{sl})
+\setcounter{DefaultLines}{2}	% First letter will occupy two lines
+\renewcommand*{\DefaultLhang}{0.0}	% First letter will not hang into the margin (values between 0 and 1)
+\setlength{\DefaultFindent}{0.25em}	% (positive or negative) controls the horizontal gap between the dropped capital and the indented block of text (default=0pt)
+\setlength{\DefaultNindent}{0.0em}	% shifts all indented lines, starting from the second one, horizontally by <dimen> (this shift is relative to the first line, default=0.5em)
+
+
+%%% ----- Folder and File Picture --------------------
+% Taken from: https://tex.stackexchange.com/a/405253
+\definecolor{folderbg}{RGB}{124,166,198}
+\definecolor{folderborder}{RGB}{110,144,169}
+\newlength\Size
+\setlength\Size{4pt}
+\tikzset{%
+	folder/.pic={%
+		\filldraw [draw=folderborder, top color=folderbg!50, bottom color=folderbg] (-1.05*\Size,0.2\Size+5pt) rectangle ++(.75*\Size,-0.2\Size-5pt);
+		\filldraw [draw=folderborder, top color=folderbg!50, bottom color=folderbg] (-1.15*\Size,-\Size) rectangle (1.15*\Size,\Size);
+	},
+	file/.pic={%
+		\filldraw [draw=folderborder, top color=folderbg!5, bottom color=folderbg!10] (-\Size,.4*\Size+5pt) coordinate (a) |- (\Size,-1.2*\Size) coordinate (b) -- ++(0,1.6*\Size) coordinate (c) -- ++(-5pt,5pt) coordinate (d) -- cycle (d) |- (c) ;
+	},
+}
+
+
+%%% ----- Renew maketitle command for special title
+\renewcommand{\maketitle}{%
+	\begin{titlepage}%
+		\thispagestyle{empty}%
+		\makeheader%
+		\vspace{10mm}%
+		\begin{center}%
+			\sffamily
+			\begin{spacing}{2}%
+				\huge{\textbf{\printtitle}}\par%
+				\Large{\textbf{\printsubtitle}}%
+			\end{spacing}%
+			\vspace{20mm}%
+			\begin{spacing}{1}%
+				\Large{\printtopic}\par%
+				\printfrom \par%
+				\Large{\printauthor}%
+			\end{spacing}%
+			\vspace{10mm}
+			\begin{spacing}{1}%
+				\Large{Based on Work}\par%
+				\printfrom \par%
+				\Large{Max Horsche}%
+			\end{spacing}%
+			\vfill%
+			\ifthenelse{\equal{\@supervisor}{true}}{
+				\begin{spacing}{2}%
+					\Large{\printadvisor}\par%
+					\Large{\printsupervisor}%
+				\end{spacing}%
+			}{}
+			\vspace{20mm}%
+			{\Large{\printdate}}%
+		\end{center}%
+	\end{titlepage}%
+	\pagenumbering{Roman}%
+	\setcounter{page}{1}%
+}
+
+
+%%%%----- PGF plot settings ---------------------------
+%\pgfplotsset{plot coordinates/math parser=false}
+%\newlength\figureheight
+%\newlength\figurewidth
+%\pgfplotsset{width=10cm,height=5cm}
+%
+%\pgfplotsset{
+%	scale only axis,									% Nur Achsen skalieren, keine Beschriftungen usw.
+%	width=7cm,												% Breite der Grafik
+%	%height=3cm,											% Höhe der Grafik
+%	%% Globale Achsen Eigenschaften
+%	every axis/.append style={
+%		line width=1pt,									% Dicke von Achsen und Plots
+%		tick style={line width=0.8pt},	% Dicke der Ticksstriche
+%		grid style={dashed, Schwarz!20},	% Grid gestrichelt in grau
+%		grid=major,											% Haupt-Grid anzeigen
+%	},
+%	%% Globale Legenden Eigenschaften
+%	every axis legend/.append style={
+%		at={(0.5,1.05)}, anchor=south,	% Mittig über Graphen platzieren
+%		draw=Schwarz,										% Rahmenfarbe
+%		line width=0.4pt,								% Liniendicke betrifft ALLE!
+%		cells={line width=1pt},					% Liniendicke betrifft NUR Legendeineinträge
+%		fill=Weiss,											% Füllfarbe
+%		legend cell align=left,					% Linksbündig
+%	},
+%}
+%
+%%%%----- Tikz Erweiterungen --------------------------
+%\usetikzlibrary{shapes, arrows} % arrows, automata, backgrounds, calendar, chains, matrix, mindmap, patterns, petri, shadows, shapes.geometric, shapes.misc, spy, trees
+%	
+%
+%%%%----- Globale Tikz Einstellungen ------------------
+%\tikzset{>=latex}
+%\tikzset{
+%%% Globale Pin Eigenschaften
+%	every pin/.append style={
+%		fill=Elfenbein,									% Füllfarbe
+%		rectangle,											% Form der Markierung
+%		%rounded corners=1pt,						% Abgerundete Ecken
+%		draw=Schwarz,										% Rahmenfarbe
+%		line width=0.4pt,								% Liniendicke betrifft ALLE!
+%		font=\footnotesize,							% Schriftgröße
+%		pin distance=0.3cm							% Pin-Abstand zur Markierung
+%	},
+%	%% Globale Markierungs Eigenschaften
+%	small dot/.append style={
+%		fill=Schwarz,										% Füllfarbe
+%		circle,													% Punkt
+%		scale=0.5,											% Größe
+%	},
+%}
+%
+%%%%----- Show current fontsize -----------------------
+%\makeatletter
+%\newcommand\thefontsize[1]{{#1 Current font size is: \f@size pt\par}}
+%\makeatother
+%
+%%%%----- Karokästchen --------------------------------
+%\newcommand\kariert[2][0.5cm]{% 
+%   \begin{tikzpicture}[gray,step=#1]
+%     \pgfmathtruncatemacro\anzahl{(\linewidth-\pgflinewidth)/#1} % maximale Anzahl Kästchen pro Zeile
+%     \draw (0,0) rectangle (\anzahl*#1,#2*#1) (0,0) grid (\anzahl*#1,#2*#1);
+%   \end{tikzpicture} 
+%}
+%
+%%%%----- Spaltenbreiten ------------------------------
+%\newcommand*\showwidth[1]{%
+%	Current \texttt{\textbackslash#1} is: \expandafter\the\csname#1\endcsname\par
+%	\vspace{-1em}%
+%  \textcolor{blue}{\rule{\csname#1\endcsname}{1pt}}\par
+%}

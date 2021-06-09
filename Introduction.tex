@@ -1,0 +1,345 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Technical University of Munich
+%% Institute for Electrical Energy Storage Technology
+%% 
+%% Version:    03. August 2020
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{Introduction to the \gls*{gls:ees}-\Latex Template}
+\label{chap:introduction}
+\Latex is a good alternative to Word/Pages, especially for large documents. A \Latex document consists of a kind of source code that can be created with any conventional text editor. An \ac{acr:ide} such as the \gls{gls:txc}, the \gls{gls:txs} or TeXworks facilitate the operation as well as the compilation. Predefined profiles can be used to redirect the output to PostScript or \ac{acr:pdf}. 
+
+Similar to Word/Pages, an \ac{acr:ide} offers an user interface and functionalities that a basic text editor does not have. Especially the auto-completion of \Latex commands is an advantage of an \ac{acr:ide} compared to a common editor. These commands define the appearance of the generated document. In contrast, in Word/Pages the appearance is formatted directly in the editor and displayed in real time. For example, the chapter heading can be set with a simple mouse click using quick formatting or style sheets in Word. In \Latex this is done with the command \lstinline|\caption{Basics}|. The command is started with a backslash and takes one argument, in our example the chapter heading.
+
+The \gls{gls:ees} provides style sheets to create all common documents. These templates only need to be filled with content. The available templates are:
+\begin{description}
+	\item[\textit{ees-book}] should be used for writing extensive work such as lecture notes, textbooks or dissertations. The underlying document class is \textit{scrbook} and is intended for double-sided printing by default.
+	\item[\textit{ees-report}] is also to be used for extensive work such as final theses (\acs{acr:pt}, \acs{acr:mt}, \acs{acr:bt}, \acs{acr:fp}, \acs{acr:ip}) but also project reports or internship attempts. The underlying document class is \textit{scrreprt} and is intended for one-page printing.
+	\item[\textit{ees-protocol}] is based on the document class \textit{scrartcl}. A single-column layout and particularly compact formatting allow short and concise logs or status reports.
+	\item[\textit{ees-article}] is intended for short reports and papers like the Hauptseminar. The document class \textit{scrartcl} is used. Adjustments regarding the layout are taken from the official document classes \textit{elsarticle} and \textit{IEEEtran}. 
+	%%\item[\textit{ees-letter}] verwendet die überarbeitete Dokumentklasse \textit{scrlttr2}. Sie ist entsprechend den offiziellen Vorgaben der TUM-Brief-Vorlage angepasst.
+	%%\item[\textit{ees-presentation}] nutzt die Dokumentklasse \textit{beamer} und unterscheidet sich grundlegend von allen anderen Dokumenttypen. Mit ihr lassen sich Präsentationen erstellen.
+	%%\item[\textit{ees-poster}] nutzt standardmäßig die Dokumentklasse \textit{a0poster} und unterscheidet sich ebenfalls grundlegend von allen anderen Dokumenttypen. Mit ihr können Poster erstellt werden.
+\end{description}
+
+
+All the above templates are available through the same \Latex class (\texttt{.cls} file). By default, the most common packages are loaded for all document types (see appendix~\ref{app:packages}). Packages allow the use of commands that go beyond the standard \Latex commands. For example, the package \textit{graphicx} provides extensive options for including images in the document. The \textit{listings} package allows source code to be included. Packages thus extend the range of functions beyond the \Latex standard, or provide macro commands to simplify operation. However, depending on the requirements, it is possible that some packages remain unused. This may slightly increase the compilation time, but it makes it easier to get started with \Latex and ensures the corresponding compatibility of the classes. 
+
+
+
+
+\section{Structure of the \gls*{gls:ees}-\Latex Template}
+\label{sec:template:structure}
+The \gls{gls:ees}-\Latex template is kept as simple and flexible as possible. All required files are located in the \Latex project folder, which can be renamed as desired. The structure of the project can be recognized by the folder structure. Along with the main file \mainfile there are folders containing further files that are included in the main file. The project folder contains the following subfolders and files:
+
+\begin{description}
+	\item[\tikz{\path (0,0) pic {folder};}\xspace\imgdir] contains all images and graphs. Illustrations are integrated via relative paths, so this path must always be included in front of any file name.
+	\item[\tikz{\path (0,0) pic {folder};}\xspace\listdir] contains all source files for the glossary (\glofile), list of acronyms \mbox{(\acrfile)}, list of symbols (\symfile) and manual hyphenation \linebreak(\hypfile). In addition, the automatically integrated bibliography file \linebreak(\litfile) can be found here.
+	%\item[\styledir] beinhaltet alle Stylesheets welche globale Einstellungen treffen. Hier befindet sich außerdem die entsprechenden Titelseiten und Kopf-/Fußzeilenlayouts. In der Regel muss hier nichts geändert werden!
+	%\item[\headdir] beinhaltet die jeweiligen Header-Dateien der verschiedenen Dokumenttypen. Die Datei \packagefile wird von jedem Dokumenttyp geladen und beinhaltet alle zusätzlich geladenen Pakete.
+	\item[\tikz{\path (0,0) pic {folder};}\xspace\logodir] contains the official \gls{gls:tum} and \gls{gls:ees} logos . These may not be renamed or moved!
+	\item[\tikz{\path (0,0) pic {folder};}\xspace\texdir] is the actual working directory. Here you will find all \texttt{.tex} files with corresponding content. These must be included in the main file \mainfile.
+	\item[\tikz{\path (0,0) pic {folder};}\xspace\tikzdir] contains images and graphics, which are created by outsourcing the pgf-plots (see \autoref{sec:objects:graphs}) (\texttt{externalize=true}, see \autoref{sec:documentTypes}).
+	\item[\tikz{\path (0,0) pic {file};}\xspace\classfile] is the \Latex class. This is where all packages are loaded, formatting is done and default values are set. The file combines \textit{ees-book}, \textit{ees-report}, \textit{ees-protocol} and \textit{ees-article}. Usually no changes to this file are required.
+	\item[\tikz{\path (0,0) pic {file};}\xspace\mainfile] is the \Latex main file. Here the class is loaded, options are set and the content is written or included via other files. This is also the file that is compiled by the processor/editor.
+\end{description}
+
+The basic structure of all document classes is similar and can be seen in \autoref{lst:template:structure}. At the beginning the title page/title bar should be included (\lstinline|\maketitle|). Afterwards a \textit{prefix} environment can be inserted before the table of contents. %This environment defines a custom page style. 
+It has neither header nor footer and is therefore suitable for the imprint or the abstract. Chapters as well as subchapters within this environment are neither included in the table of contents nor in the \acs{acr:pdf} bookmarks. The header and footer begin with the table of contents (\lstinline|\tableofcontents|). Headers and footers appear on all pages except those with chapter headings (using \lstinline|\chapter|). The page numbering starts with Roman numerals. Glossary, list of acronyms, and list of symbols also appear with Roman page numbering. This is followed by the main part. The page style of the \textit{mainpart} environment enforces Arabic page numbering starting at \enquote{1} and includes all chapters. Directly after the main part follows the bibliography (\lstinline|\printbibliography|), which does not receive a chapter number. If necessary, the list of figures (\lstinline|\listoffigures|), tables (\lstinline|\listoftables|), and source code (\lstinline|\lstlistoflistings|) without chapter number follow. Finally, there is the appendix, which is forced via the \textit{annex} environment with alphabetical chapter numbers. Further information about the respective lists can be found in \autoref{sec:listOf}.
+
+Some of the environments or functionalities are not useful in all document classes. A paper/article, for example, usually has no table of contents and no preface. More information about such features can be found in \autoref{sec:documentTypes} and Appendix \ref{app:samples}.
+
+\newpage
+\begin{lstlisting}[caption={General document structure of the main file. \label{lst:template:structure}}]
+	%%%----- Document class ------------------------------
+	\documentclass[
+		% Class Options
+	]{ees}
+
+	%%%----- Document Information ------------------------
+	\settopic{Document Type}
+	\settitle{Title}
+	\setauthor{First and Sure Name}
+	\setdate{\today}
+	\setkeywords{Key, Words, Comma, Separated}
+	% Additional information possible, depending on class
+
+	\bibliography{LIST/literature} 			% Load BibTeX source file
+	\loadglsentries{./LIST/glossaries} 	% Load definitions: Glossary
+	\loadglsentries{./LIST/acronyms}		% Load definitions: List of Acronyms
+	\loadglsentries{./LIST/symbols}			% Load definitions: List of Symbols
+
+	%%%----- Document ------------------------------------
+	\begin{document}
+		% \listoftodos 	% Print List of ToDo's, if needed
+		\maketitle 			% Print Title Page
+
+		\begin{prefix}
+			% Integration of the opening credits (imprint and abstract)
+		\end{prefix}
+
+		\tableofcontents % Show Table of Contents
+		\printgloss 	 	 % Show Glossary
+		\printacro	 		 % Show List of Acronyms
+		\printsym 			 % Show List of Symbols
+		
+		\begin{mainpart}
+			% Integration of the content/main part
+		\end{mainpart}
+		
+		\printbibliography 	% Show Bibliography
+		\listoffigures 			% Show List of Figures
+		\listoftables 			% Show List of Tables
+		\lstlistoflistings 	% Show List of Listings (Source Code)
+		
+		\begin{annex}
+			% Integration of the appendix
+		\end{annex}
+	\end{document}
+\end{lstlisting}
+
+
+
+
+\section{Choosing the Document Class}
+\label{sec:documentTypes}
+A total of four document types are available for different purposes. The classes are largely compatible with each other. The main difference in terms of compatibility is the levels of structuring available for each class (see~\autoref{tab:structuring}). The document class must be specified at the beginning of the main file (\mainfile) using the command \lstinline|\documentclass| with the option \verb|class|:
+
+\begin{lstlisting}[caption={Choosing the Document Class}]
+	%%%----- Document class ------------------------------
+	\documentclass[
+		class=book, 					% book, report, protocol, article
+		docmode=draft, 				% draft / [final]
+		language=english, 		% english / [german]
+		externalize=true, 		% [false] / true
+		fontfamily=helvet, 		% [lmr] / lmss / helvet / times
+		fontsize=9pt, 				% 9pt / [10pt] / 11pt / 12pt
+		linkhighlight=text, 	% off / [border] / text / ocrtext
+		shortglossary=false, 	% [false] / true
+		twoside=false, 				% [false] / true
+		twocolumn=false, 			% [false] / true
+	]{ees}
+\end{lstlisting}
+
+%%\begin{lstlisting}[caption={Choosing the Document Class}]
+	%%%%%----- Document class ------------------------------
+	%%\documentclass
+		%%class=book, % book, report, protocol, article
+		%%docmode=draft, % draft / [final]
+		%%language=english, % [ngerman] / english
+		%%externalize=true, % true / [false]
+		%%fontfamily=helvet, % [lmr] / lmss / helvet / times
+		%%fontsize=9pt, % 9pt / [10pt] / 11pt / 12pt
+		%%linkhighlight=text, % off / [border] / text / ocrtext
+		%%shortglossary=false, % true / [false]
+		%%twoside=false, % true / [false]
+		%%twocolumn, % onecolumn / [twocolumn]
+		%%showcontact=true, % true / [false]
+		%%aspectratio=43, % 1610 / 169 / 149 / 54 / [43] / 32
+		%%orientation=portrait, % landscape / [portrait]
+		%%papersize=a0, % [a0] / a1 / a2 / a3 / a4
+	%%]{ees}
+%%\end{lstlisting}
+
+Each document class has different options (see \autoref{tab:documentOptions}). These can be adjusted according to the commands in square brackets after \lstinline|\documentclass|. The respective options are explained in the following. It is important to note that the \texttt{class} option is mandatory. It has no default value and must be specified, otherwise the compilation process will fail. All other options have default values. 
+
+\begin{table}[ht]
+	\caption{Options of the different document classes}
+	\label{tab:documentOptions}
+	\begin{tabularx}{0.5\textwidth}{lLLLl}
+		\toprule
+		 & \multicolumn{4}{c}{Document Class} \\
+		\cmidrule(rl){2-5}
+		Option & \rotatebox{45}{ees-book (scrbook)} & \rotatebox{45}{ees-report (scrreprt)} & \rotatebox{45}{ees-protocol (scrartcl)} & \rotatebox{45}{ees-article (scrartcl)} \\
+		\midrule
+%		Option 					& book			& report		& protocol	& article 	\\
+		docmode					& $\bullet$ & $\bullet$ & $\bullet$ & $\bullet$ \\
+		language 				& $\bullet$ & $\bullet$ & $\bullet$ & $\bullet$ \\
+		externalize			& $\bullet$ & $\bullet$ & $\bullet$ & $\bullet$ \\
+		fontfamily 			& $\bullet$ & $\bullet$ & $\bullet$ & $\bullet$ \\
+		fontsize	 			& $\bullet$ & $\bullet$ & $\bullet$ & $\bullet$ \\
+		linkhighlight 	& $\bullet$ & $\bullet$ & $\bullet$ & $\bullet$ \\
+		shortglossary	 	& $\bullet$ & $\bullet$ & $\bullet$ & 					\\
+		twoside					&						&						& $\bullet$ & 					\\
+		twocolumn				& 					& 					&						& $\bullet$ \\
+		\bottomrule
+	\end{tabularx}
+\end{table}
+
+%%\begin{table}[ht]
+	%%\caption{Options of the different document classes}
+	%%\label{tab:documentOptions}
+	%%\begin{tabularx}{0.7\textwidth}{lLLLLLLl}
+		%%\toprule
+		 %%& \multicolumn{7}{c}{Document Class} \\
+		%%\cmidrule(rl){2-8}
+		%%Option & \rotatebox{45}{ees-book (scrbook)} & \rotatebox{45}{ees-report (scrreprt)} & \rotatebox{45}{ees-protocol (scrartcl)} & \rotatebox{45}{ees-article (scrartcl)} & \rotatebox{45}{ees-letter (scrlttr2)} & \rotatebox{45}{ees-presentation (beamer)} & \rotatebox{45}{ees-poster (scrreprt)} \\
+		%%\midrule
+%%%		Option 					& book			& report		& protocol	& article 	& letter		& presenta	& poster 		\\
+		%%docmode					& $\bullet$ & $\bullet$ & $\bullet$ & $\bullet$ & $\bullet$	& $\bullet$ & $\bullet$ \\
+		%%language 				& $\bullet$ & $\bullet$ & $\bullet$ & $\bullet$ & $\bullet$	& $\bullet$ & $\bullet$ \\
+		%%externalize			& $\bullet$ & $\bullet$ & $\bullet$ & $\bullet$ & $\bullet$	& $\bullet$ & $\bullet$ \\
+		%%fontfamily 			& $\bullet$ & $\bullet$ & $\bullet$ & $\bullet$ & $\bullet$	& $\bullet$ & $\bullet$ \\
+		%%fontsize	 			& $\bullet$ & $\bullet$ & $\bullet$ & $\bullet$ & $\bullet$	& $\bullet$	&						\\
+		%%linkhighlight 	& $\bullet$ & $\bullet$ & $\bullet$ & $\bullet$ & 					& $\bullet$ &						\\
+		%%shortglossary	 	& $\bullet$ & $\bullet$ & $\bullet$ & 					& 					& 					& 					\\
+		%%twoside					&						&						& $\bullet$ & 					& 					& 					& 					\\
+		%%twocolumn				& 					& 					&						& $\bullet$ &						&						& 					\\
+		%%showcontact			&						& 					& 					&  					& $\bullet$ & 					&			 			\\
+		%%aspectratio			&						& 					& 					&  					& 					& $\bullet$	& 					\\
+		%%papersize				&						& 					& 					&  					& 					& 					& $\bullet$	\\
+		%%orientation			&						& 					& 					& 		 			& 					& 					& $\bullet$	\\
+		%%\bottomrule
+	%%\end{tabularx}
+%%\end{table}
+
+\vfill
+
+\begin{description}
+	\item[class] -- default: no default \\
+	Defines the \enquote{class} of the \gls{gls:ees} template and thus the basic appearance of the document. Valid values are \texttt{book}, \texttt{report}, \texttt{protocol} and \texttt{article}. Further information can be found in \autoref{sec:documentTypes:book} to \autoref{sec:documentTypes:article}.
+	
+	\item[docmode] -- default: \texttt{final} \\
+	Sets the mode of the document. Valid values are \texttt{draft} and \texttt{final}. The \texttt{draft} mode allows a quick compilation by replacing images with placeholders. Furthermore, guidelines are displayed to delimit the writing area from the page margin. A note is placed in the footer indicating that this is a preliminary version (including date and time). Furthermore, the running text is provided with line numbers, which can assist the proofreading process. The mode \texttt{final} is the default. Here all images are printed in their entirety. Guidelines and note in the footer as well as line numbers are not displayed.
+	
+	\item[language] -- default: \texttt{german} \\
+	Sets the language of the document. Valid values are \texttt{english} and \texttt{german}. The option translates the title page as well as the terms of the glossary, list of acronyms, list of symbols, list of images, list of tables and list of source code. Furthermore, the \textit{babel} package is defined to enable automatic hyphenation according to the selected language (for spell checking in the editor, the \ac{acr:ide} responsible). The decimal separator (DE -- comma, EN -- dot) is defined globally for the package \textit{siunitx}.
+	
+	\item[externalize] -- default: \texttt{false} \\
+	Sets the outsourcing of figures. Valid values are \texttt{true} and \texttt{false}. Outsourcing means that the images are saved as external \ac{acr:pdf} files. Creating figures and graphs can be done by the package \textit{pgfplots} or \textit{tikz} (see \autoref{sec:objects:graphs}). However, the creation of such a figure can take a very long time, which decelerates the compilation process. Once the figure is outsourced, it can be loaded as a \ac{acr:pdf} during the next compilation instead of having to be created again. This will speed up the compilation process on the next run. The outsourced files including temporary files are saved in the \tikzdir folder. Changes to the figure may not be applied. It is therefore advisable to delete the temporary files so that changes take effect at the next compilation. The complete handling of the externalization is shown in \autoref{sec:objects:externalize} by means of an example. The technical requirements for the externalization are also explained there.
+	
+	\item[fontfamily] -- default: \texttt{lmr} \\
+	Sets the font of the document. Valid values are \texttt{lmr}, \texttt{lmss}, \texttt{helvet} and \texttt{times}. The default value uses \texttt{lmr} (Latin Modern Roman) which is a vectorized version of the \Latex standard \textit{Computer Modern Roman} (bitmap font). This font contains serifs. The \texttt{lmss} option (Latin Modern Sans Serifs) also uses Latin Modern, but in the sans serif version. When using \texttt{helvet}, TUM New Helvetica is set as the font. TUM New Helvetica is only available as a sans serif font and must be installed. The installation is handled in \autoref{sec:font}. The option \texttt{times} sets the font of the document to Times Roman (with serifs). \\
+	Not all fonts necessarily support all glyphs (characters). This applies in particular to mathematical symbols. Under certain circumstances, symbols may be automatically taken directly from other fonts to replace missing symbols. It is also possible that individual symbols are displayed in pixelated form that are not otherwise compatible with the selected font. The Latin Modern font offers the greatest compatibility.
+	
+	\item[fontsize] -- default: \texttt{10pt} \\
+	Sets the font size of the document. Valid values are \texttt{9pt}, \texttt{10pt}, \texttt{11pt} and \texttt{12pt}. By default, \texttt{10pt} should be set here and other values should only be used under special circumstances.
+	
+	\item[linkhighlight] -- default \texttt{border} \\
+	Sets the highlighting of cross-references and links. Valid values are \texttt{off}, \texttt{border}, \texttt{text} and \texttt{ocrtext}. The default value \texttt{off} disables highlighting of all links. The default value \texttt{border} highlights links with a colored frame, which can only be seen in the \ac{acr:pdf} viewer and not when printing. When using \texttt{text}, the text itself is colored instead of using a colored frame. This coloring is also visible in the print. The \texttt{ocrtext} option also highlights links with colored text and disables the highlighting for printing. However, this option does not allow line breaks from links, which usually leads to incorrect output.
+	
+	\item[shortglossary] -- default: \texttt{false} \\
+	Suppresses the explicit listing of the list of glossarie, the list of acronyms, and the list of symbols. Hyperlinks instead lead to the first occurrence in the running text. Valid values are \texttt{true} and \texttt{false}. Warning: Does not work properly at present. The link to the first occurrence only works for glossary entries, but not for abbreviations or formula symbols.
+	
+	\item[twoside] -- default: \texttt{false} \\
+	Defines one-sided or two-sided printing of the document. Valid values are \texttt{true} and \texttt{false}. When the default value \texttt{false} is used, the running text of the document is printed on only one page, leaving the back of each sheet of paper blank. A double-sided display is possible with the \texttt{true} option, which is suitable for letterpress printing. The \texttt{twoside} option is only available for \texttt{class=protocol}. For \texttt{book}, double-sided printing is forced, for all remaining classes, single-sided printing is forced.
+	
+	\item[twocolumn] -- default: \texttt{true} \\
+	Sets the number of columns in the document. Valid values are \texttt{true} and \texttt{false}. If the default value \texttt{true} is used, the body text of the document is displayed in two columns. A single-column display is possible with the option \texttt{false}, which is especially useful for a review process. The \textit{twocolumn} option is only available in the \textit{article} class. All other document types are displayed in single columns.
+	
+	%%\item[showcontact] -- default: \texttt{false} \\
+	%%Zeigt die optional definierten Kontaktinformationen in der Briefbeschreibung der ersten Seite. Gültige Werte sind \texttt{true} und \texttt{false}. Bei Bedarf kann mit dieser Option ein direkter Ansprechpartner mit Namen, Email-Adresse, Telefonnummer und weiteren Informationen genannt werden. Die Formatierung erfolgt automatisch und entspricht der offiziellen \gls{gls:tum}-Briefvorlage. Standardmäßig ist diese Option deaktiviert.
+	
+	%%\item[aspectratio] -- default: \texttt{43} \\
+	%%Setzt das Seitenverhältnis der Präsentation. Gültige Werte sind \texttt{1610}, \texttt{169}, \texttt{149}, \texttt{54}, \texttt{43} und \texttt{32}. Die Seiten- \bzw Foliengröße wird entsprechend des Seitenverhältnisses gesetzt. So setzt der Wert \texttt{1610} das Verhältnis auf \sfrac{16}{10} und für den Standardwert von \texttt{43} auf \sfrac{4}{3}. In jedem Fall handelt es sich um ein Querformat.
+	
+	%%\item[orientation] -- default: \texttt{portrait} \\
+	%%Setzt die Orientierung des Posters. Gültige Werte sind \texttt{landscape} und \texttt{portrait}. Standardmäßig liegen Poster im Hochformat (\texttt{portrait}) vor und sollten nur für bestimmte Zwecke gedreht (\texttt{landscape}) werden.
+	
+	%%\item[papersize] -- default: \texttt{a0} \\
+	%%Setzt die Papiergröße des Posters. Gültige Werte sind \texttt{a0}, \texttt{a1}, \texttt{a2}, \texttt{a3} und \texttt{a4}. Mit der Papiergröße kann eine (nicht lineare) Skalierung erreicht werden. Grundsätzlich gilt, dass Inhalte, die für ein \texttt{a0}-Poster ausgelegt wurden, nicht zwangsläufig auf ein \texttt{a4}-Poster passen. Soll das Poster für den Druck linear skaliert werden, kann dies beim Ausdrucken über die allgemeine Drucker-Skalierung geschehen. Dies führt im Allgemeinen zu sehr kleinen Schriftgrößen.
+ \end{description}
+
+
+
+
+\subsection{\textit{ees-book} -- Double-page printed Books}
+\label{sec:documentTypes:book}
+The document type \textit{ees-book} is designed for double-sided printing. The binding correction is accordingly alternating, depending on even and odd pages, which are left or right. After binding, the header contains the chapter (\lstinline|\chapter|) left-justified on even pages and the subchapter (\lstinline|\section|) right-justified on odd pages. By default, all structure items are numbered up to \lstinline|\subsection| and are included in the table of contents up to \lstinline|\subsection|. The topmost structure level is \lstinline|\chapter|. The line spacing is set to \num{1.5}.
+
+A complete minimal example with all available options is given in appendix \ref{sec:app:samples:book}.
+
+
+
+
+\subsection{\textit{ees-report} -- Single-page printed Report}
+\label{sec:documentTypes:report}
+The document type \textit{ees-report} is suitable for single-sided printing. The binding correction is left-sided and the subchapter is right-aligned in the header (\lstinline|\section|). If no subchapter is available, the current chapter is used here. By default, all structure items are numbered up to \lstinline|\subsection| and are included in the table of contents up to \lstinline|\subsection|. The topmost structure level in the main section is \lstinline|\chapter|. The line spacing is set to \num{1.5}.
+
+A complete minimal example with all available options is given in appendix \ref{sec:app:samples:report}.
+
+
+
+
+\subsection{\textit{ees-protocol} -- Universal compact Layout}
+\label{sec:documentTypes:protocol}
+The document type \textit{ees-protocol} is intended for both single-sided and double-sided printing. The page layout is centered with equal-sided margins and the page numbering is centered, too. By default, all structure items are numbered up to \lstinline|\subsection| and are included in the table of contents up to \lstinline|\subsection|. The topmost structure level in the main partis \lstinline|\chapter|. The single line spacing as well as the absence of page breaks and an explicit list of acronyms allow for a compact presentation.
+
+A complete minimal example with all available options is given in appendix \ref{sec:app:samples:protocol}.
+
+
+
+
+\subsection{\textit{ees-article} -- Brief Reports and Short Papers}
+\label{sec:documentTypes:article}
+\todo{article -- noch Abstimmungsbedarf: Sollen Lettrine erklärt werden, oder sind die obsolet?}
+The document type \textit{ees-article} is mostly compatible with the official paper templates of \textit{Elsevier} (\verb|elsarticle|) and \textit{IEEE} (\verb|IEEEtran|). The print is one-sided. You can choose between a one-column or two-column layout. As a rule, short papers do not have a prefix (pages preceding the actual main part). This eliminates the table of contents and any glossaries and lists of acronyms. An abstract is nevertheless available. Lists of figures and tables are also omitted. The bibliography and the appendix are retained.
+
+A complete minimal example with all available options is given in appendix \ref{sec:app:samples:article}.
+
+
+%%%%%----- Subsection ----------------------------------
+%%\subsection{\textit{ees-letter} -- Standard Briefvorlage}
+%%\label{sec:dokumenttypen:letter}
+%%Der Dokumenttyp \textit{ees-letter} entspricht der offiziellen Vorlage der \gls{gls:tum} und ist somit für offizielle Geschäftsbriefe geeignet. Der Aufbau unterscheidet sich dahingehend, dass grundsätzlich keine Gliederungsebenen, sondern ausschließlich Fließtext erlaubt ist. Hierfür wurde die \textit{letter}-Umgebung neu konfiguriert.
+%%
+%%\begin{lstlisting}[caption={Dokumentinformationen -- \textit{ees-letter}}]
+	%%%%%----- Letter Information --------------------------
+	%%\setcompany{Company Name}
+	%%\setcontact{First- Surename}
+	%%\setstreet{Streetname Nr. XX}
+	%%\setcity{Postal Code, City Name}
+	%%\setcountry{Country}
+	%%
+	%%\setsubject{Reference Line}
+	%%\setopening{Dear Sir or Madam:}
+	%%\setclosing{Yours Faithfully,}
+	%%\setsignature{First- Surename}
+	%%
+	%%\setdate{\today}
+	%%\setkeywords{Key, Words, Comma, Seperated}
+	%%
+	%%% Optional (showcontact=true):
+	%%\setauthor{First- Surename}
+	%%\setpretitle{Dipl.-Ing.}
+	%%\setposttitle{M.\,Sc.}
+	%%\setphone{269XX}
+	%%\setmail{first.surename@tum.de}
+	%%\setother{Skype, Bitnet, \ldots}
+%%\end{lstlisting}
+
+
+%%%%%----- Subsection ----------------------------------
+%%\subsection{\textit{ees-presentation} -- Präsentationen für Beamer}
+%%\label{sec:dokumenttypen:presentation}
+%%\todo{presentation -- noch Abstimmungsbedarf}
+%%Der Dokumenttyp \textit{ees-presentation} unterscheidet sich grundlegend von allen anderen Klassen. Beruhend auf der \textit{beamer}-Klasse werden sogenannte \textit{frames} als separate Folien erstellt. Gliederungsebenen wie \lstinline|\section| und \lstinline|\subsection| erlauben die Einteilung der Folien und die automatische Erstellung einer Agenda. Spalten auf Folien können mit \textit{columns} automatisch ausgerichtet werden.
+%%
+%%\begin{lstlisting}[caption={Dokumentinformationen -- \textit{ees-presentation}}]
+	%%%%%----- Presentation Information --------------------
+	%%\settopic{Topic}
+	%%\settitle[Short Title]{Title}
+	%%\setsubtitle[Short Subtitle]{Subtitle}
+	%%\setauthor[FS]{First- Surename}
+	%%\setinstitute[TUM -- EES]{Technical University of Munich \\ Institute for Electrical Energy Storage Technology \\ Arcisstraße 21, 80333 Munich, Germany}
+	%%\setdate{\today}
+	%%\setkeywords{Key, Words, Comma, Seperated}
+%%\end{lstlisting}
+
+
+%%%%%----- Subsection ----------------------------------
+%%\subsection{\textit{ees-poster} -- Posterbeiträge}
+%%\label{sec:dokumenttypen:poster}
+%%\todo{poster -- noch Abstimmungsbedarf}
+%%Der Dokumenttyp \textit{ees-poster} benötigt sehr viel manuelle Anpassung. Als eigenständiges Objekt kann die \textit{titlebox}-Umgebung genutzt werden. Als weiteres Positionselement kann die \textit{minipage}- und \textit{multicols}-Um\-ge\-bung verwendet werden.
+%%
+%%\begin{lstlisting}[caption={Dokumentinformationen -- \textit{ees-poster}}]
+	%%%%%----- Poster Information --------------------------
+	%%\settopic{Topic}
+	%%\settitle{Title}
+	%%\setauthor{First- Surename}
+	%%\setinstitute{Technical University of Munich | Institute for Electrical Energy Storage Technology | Arcisstraße 21, 80333 Munich, Germany}
+	%%\setcontact{\href{www.ees.ei.tum.de}{www.ees.ei.tum.de} | \href{mailto:first.surename@tum.de}{Mail: vor.nachname@tum.de} | Phone: +49.89.289.26XXX | Fax: +49.89.289.26968}
+	%%\setdate{\today}
+	%%\setkeywords{Key, Words, Comma, Seperated}
+%%\end{lstlisting}

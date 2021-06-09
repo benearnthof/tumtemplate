@@ -1,0 +1,68 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Technical University of Munich
+%% Institute for Electrical Energy Storage Technology
+%% 
+%% Version:    03. August 2020
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{My first \Latex Document}
+\label{cha:firstDocument}
+As we have already learned, \Latex differs from Word/Pages, for example, in that the finished document is not visible on the screen in real time. When compiling the document, the text is formatted and assembled using commands. The formatting of different elements such as chapter headings, footnotes, etc. are specified separately from the content. Thus, the same \Latex document (\verb|.tex|) can easily take on different appearances by using different style sheets. The content of the \verb|.tex| file remains unchanged.The basic idea is that the author does not have to worry about layout, design or formatting, but can devote himself entirely to the content of the document.
+
+To use \Latex, a \Latex distribution must be installed. But do we want to install software that we might not like? We want to address this problem here in advance with an online editor. We can create a document without installation and get a first impression of how \Latex is used. Of course, this step can be postponed and the installation in \autoref{cha:installation} can be started first. While the installation is running you can continue here.
+
+The online editor \textit{ShareLaTeX}\footnote{Website: \href{sharelatex.tum.de}{sharelatex.tum.de}} allows the creation and editing of \Latex documents online. Thus, all documents are centrally available, but only if you are connected to the Internet. Due to a cooperation of \gls{gls:tum} with ShareLaTeX, an account has already been created for each student of \gls{gls:tum}, which is accessible via the \gls{gls:tum} identification and password\footnote{This service is hosted by \gls{gls:lrz}. The data of the project is thus located on a secure server and does not leave it.}. Once we are logged in, we create a new, empty project (\textit{New Project $\rightarrow$ Blank Project}). As project name we can use for example \enquote{My first project}. The project appears in the project list and can be opened\footnote{The first time a newly created project is opened, ShareLaTeX displays an error message that the requested page is not available. If we return to the previous page and open the project again, the project will actually open.}.
+
+We now see a three-part interface. On the left is the project structure with its resources. There you will find the main file \verb|main.tex|. Here you might also find other resources like images or other source files. In the middle is the editor in which we see our \Latex document. On the right is the preview of the compiled (\ie created) \Latex document in form of a \ac{acr:pdf} file. For the time being, our focus shall be on the editor, the content of which is shown in \autoref{lst:my first document part 1}.
+
+\begin{lstlisting}[caption={My first \Latex Document, Part 1 \label{lst:my first document part 1}}, float]
+	\documentclass{article}
+	\usepackage[utf8]{inputenc}
+	
+	\title{My First Project}
+	\author{<Surename>, <Firstname>}
+	\date{February 2020}
+	
+	\begin{document}
+		
+		\maketitle
+		
+		\section{Introduction}
+		
+	\end{document}
+\end{lstlisting}
+
+It is noteworthy that the editor contains a simple text file with commands that are introduced by a left slash \ or backslash (\verb|\|). These commands are processed by the compiler during compilation using the blue \enquote{Recompile} button at the top of the preview window according to the style sheet used. In this case the document class \textit{article} defines the style. This defines, for example, that the title of the document is centered on the page and displayed in a larger font than the author and date. Such formatting issues are therefore specified for the author via style sheets and can vary depending on the template used.
+
+The \Latex document from \autoref{lst:my first document part 1} consists of two main components. At the beginning is the preamble, which ends in the line before the command \lstinline|\begin{document}|. The preamble defines the document class, packages\footnote{packages extend the functionality of the standard \Latex distribution. For example, the package \textit{inputenc} enables the direct use of umlauts in the editor.} loaded, and further definitions are made. The preamble is followed by the document. Within this \textit{document} environment is the actual content.
+
+Here we want to go through a simple example of how to extend the range of functionality. So far, our document has no content. Nevertheless, we would like to check the appearance of our future text. To achieve this without generating a document with content, dummy text is the means of choice. \textit{Lorem ipsum} is a well-known dummy text that is used as a placeholder in many situations. We can use a Lorem ipsum generator \cite{Jones.2005} to create a dummy text of any length and copy it into the document. If we want to fill different chapters with dummy text of different lengths, the \Latex source code will become longish, even though no content has been written yet. 
+
+As an alternative to this manual procedure we can search for \enquote{Lorem ipsum Latex} or \enquote{Blindtext Latex} in search engines on the internet. There we find the two packages \textit{lipsum} and \textit{blindtext}. Packages usually come with documentation or a manual\footnote{packages including manual are usually provided on \href{https://ctan.org/}{ctan.org}}. Sometimes the manuals of such packages seem quite cryptic and you can't find your way around. For the handling we start a new internet search with the search term \enquote{Latex blindtext example}\footnote{The English language search is usually most successful.} The search returns various forums and blogs, among which we will find what we are looking for \cite{tom.2011}. In the preamble, we let \Latex know via \lstinline|\usepackage{blindtext}| that we want to use the package \textit{blindtext}. This makes the commands of the package available. In the document we can then insert a paragraph of dummy text using the \lstinline|\blindtext| command. If we recompile our document with the blue \enquote{Recompile} button, we see the result of our changes (see~\autoref{lst:my first document part 2}).
+ 
+\begin{lstlisting}[caption={My first \Latex Document, Part 2 \label{lst:my first document part 2}}, float]
+ \documentclass{article}
+ \usepackage[utf8]{inputenc}
+ \usepackage{blindtext}		% <--
+ 
+ \title{My first Project}
+ \author{<Surename>, <Firstname>}
+	\date{February 2020}
+ 
+ \begin{document}
+ 
+ \maketitle
+ 
+ \section{Introduction}
+ \blindtext 							% <--
+ 
+ \end{document}
+\end{lstlisting}
+
+\vfill
+Further information for an introduction to \Latex can be found here: \\
+German: \cite{CTANTeam.2020c} $\rightarrow$ \enquote{l2kurz.pdf} \\
+English: \cite{CTANTeam.2020b} $\rightarrow$ \enquote{lshort.pdf}
+
+\vfill
+The following chapters cover the \gls{gls:ees}-\Latex templates. This is followed by the installation of the MiKTeX distribution and various editors (\gls{gls:txs}, \gls{gls:txc}). A basic overview of working with \Latex concludes the document.

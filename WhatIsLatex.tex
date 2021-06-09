@@ -1,0 +1,62 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Technical University of Munich
+%% Institute for Electrical Energy Storage Technology
+%% 
+%% Version:    03. August 2020
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{What is \Latex?}
+What is \Latex anyway? This chapter is intended to answer this question briefly, without going into the actual working principle. The content of the chapter is taken from the homepage of the \Latex project \cite{TheLaTeXProject.2020}. The project describes \Latex itself as follows:
+
+\bgroup
+\setlength\beforeepigraphskip{0pt} % Abstand vor Zitat
+\epigraph{\Latex is a high-quality typesetting system; it includes features designed for the production of technical and scientific documentation. \Latex is the de facto standard for the communication and publication of scientific documents. \Latex is available as free software.}{The \Latex Project}
+\egroup
+
+\Latex (pronounced \enquote{Lah-tech} or \enquote{Lay-tech}) is not a word processor. Instead, \Latex encourages the author not to care too much about the appearance of the documents, but to focus on the actual content. For example, let's look at this document: 
+
+\begin{example}
+	Cartesian closed categories and the price of eggs \\
+	Jane Doe \\
+	September 1994 \\
+	
+	Hello world!
+\end{example}
+
+For example, he would choose 18pt Times Roman for the title, 12pt Times Italic for the name and so on. This leads to two results: the author wastes time with drafts; and a lot of badly designed documents!
+
+\Latex is based on the idea that it is better to leave the design of documents to a document designer and the author to write documents. To achieve this, certain objects like titles, headings, \etc are marked as such by commands instead of being formatted directly. In \Latex, the above document would look like this:
+
+\begin{lstlisting}
+	\documentclass{article}
+	\title{Cartesian closed categories and the price of eggs}
+	\author{Jane Doe}
+	\date{September 1994}
+	\begin{document}
+		\maketitle
+		Hello world!
+	\end{document}
+\end{lstlisting}
+
+In plain language this means as much as
+\begin{itemize}
+	\item This document is an article (no book, no letter, \ldots).
+	\item The title is \enquote{Cartesian closed categories and the price of eggs}.
+	\item The author is \enquote{Jane Doe}.
+	\item The document was created in September 1994.
+	\item The actual content of the document consists of the title followed by the text \enquote{Hello World!}
+\end{itemize}
+
+In contrast to Word/Pages \Latex does not work according to the principle of \ac{acr:wysiwyg} but is based on the idea of \ac{acr:wysiwyaf}. It does not show the document on the screen as a real-time formatted result, but defines the typographic constitution of the document with the help of macros.
+
+The \Latex project emphasizes a number of properties.
+\begin{itemize}
+	\item Typesetting journal articles, technical reports, books, and slide presentations.
+	\item Control over large documents containing sectioning, cross-references, tables and figures.
+	\item Typesetting of complex mathematical formulas.
+	\item Advanced typesetting of mathematics with AMS-\Latex.
+	\item Automatic generation of bibliographies and indexes.
+	\item Multi-lingual typesetting.
+	\item Inclusion of artwork, and process or spot colour.
+	\item Using PostScript or Metafont fonts.
+\end{itemize}

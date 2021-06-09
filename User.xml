@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<lxCollection version="1" xmlns:txclxp="http://schemas.ToolsCenter.org/TeXnicCenter/LaTeXCommands.xsd">	
+	<lxPackage name="Extended LaTeX" 
+		path="" 
+		desc="Extended TeX/LaTeX native commands">
+		<lxCommand name="\LaTeX" 
+			desc="Insert LaTeX name"
+		/>
+		<lxCommand name="\notag"
+			desc="No numbering of element"
+		/>
+	</lxPackage>
+	
+	<lxPackage name="Graphicx" 
+		path="" 
+		desc="Including graphical elements">
+		<lxCommand name="\includegraphics[width=\textwidth]"
+			desc="Including graphical element"
+			parameters="1"
+		/>
+		<lxEnvironment name="figure" 
+			parameters="1" 
+			desc="Provides a figure environment"
+			icon="format.bmp"
+			index="9"
+			expafter="}[htbp]&#xA;	\includegraphics[width=\textwidth]{IMG/}&#xA;		\caption{}&#xA;		\label{fig:}&#xA;\end{figure}" 
+			expbefore="\begin{"
+		/>
+		<lxEnvironment name="subfigure" 
+			parameters="1" 
+			desc="Provides a subfigure environment"
+			icon="format.bmp"
+			index="9"
+			expafter="}[b]{0.49\textwidth}&#xA;	\includegraphics[width=\textwidth]{IMG/}&#xA;		\subcaption{}&#xA;		\label{fig:}&#xA;\end{subfigure}" 
+			expbefore="\begin{"
+		/>
+	</lxPackage>
+	
+	<lxPackage name="Tabularx" 
+		path="" 
+		desc="Including tabular elements">
+		<lxEnvironment name="table" 
+			parameters="1" 
+			desc="Provides a table environment"
+			icon="format.bmp"
+			index="10"
+			expafter="}[htbp]&#xA;	\caption{}&#xA;		\label{tab:}&#xA;		\begin{tabularx}{\textwidth}{LCR}&#xA;			\toprule&#xA;			\midrule&#xA;			\bottomrule&#xA;		\end{tabularx}&#xA;\end{table}" 
+			expbefore="\begin{"
+		/>
+		<lxEnvironment name="tabular" 
+			parameters="1" 
+			desc="Provides a tabular environment"
+			icon="format.bmp"
+			index="10"
+			expafter="}{ccc}&#xA;	&#xA;\end{tabular}" 
+			expbefore="\begin{"
+		/>
+		<lxEnvironment name="tabularx" 
+			parameters="1" 
+			desc="Provides a tabularx environment"
+			icon="format.bmp"
+			index="10"
+			expafter="}{\textwidth}{LCR}&#xA;	\toprule&#xA;	\midrule&#xA;	\bottomrule&#xA;\end{tabularx}" 
+			expbefore="\begin{"
+		/>
+	</lxPackage>
+	
+	<lxPackage name="Listings" 
+		path="" 
+		desc="Includ listings">
+		<lxEnvironment name="lstlisting" 
+			parameters="1" 
+			desc="Provides a lstlisting environment"
+			icon="format.bmp"
+			index="8"
+			expafter="}&#xA;&#xA;\end{lstlisting}" 
+			expbefore="\begin{"
+		/>
+	</lxPackage>
+	
+	<lxPackage name="Todonotes" 
+		path="" 
+		desc="Allow todo markers and list of todos">
+		<lxCommand name="\marker" 
+			desc="Add marker note"
+			parameters="1"
+		/>
+		<lxCommand name="\todo" 
+			desc="Add inline todo note"
+			parameters="1"
+		/>
+	</lxPackage>
+	
+	<lxPackage name="siunitx"
+		path="" 
+		desc="SI values and units">
+		<lxCommand name="\SI" 
+			desc="Value and unit"
+			parameters="2"
+		/>
+		<lxCommand name="\si" 
+			desc="Unit only"
+			parameters="1"
+		/>
+		<lxCommand name="\SIrange"
+			desc="Value and unit within range"
+			parameters="3"
+		/>
+		<lxCommand name="\num"
+			desc="Value only"
+			parameters="1"
+		/>
+		<lxCommand name="\numrange"
+			desc="Value within range"
+			parameters="2"
+		/>
+	</lxPackage>
+	
+	<lxPackage name="glossaries"
+		path=""
+		desc="Glossary and list of acronyms and symbols">
+				<lxCommand name="\ac"
+			desc="Acronym"
+			parameters="1"
+		/>
+		<lxCommand name="\acs" 
+			desc="Acronym short"
+			parameters="1"
+		/>
+		<lxCommand name="\acl" 
+			desc="Acronym long"
+			parameters="1"
+		/>
+		<lxCommand name="\acf" 
+			desc="Acronym full"
+			parameters="1"
+		/>
+		<lxCommand name="\acp" 
+			desc="Acronym plural"
+			parameters="1"
+		/>
+		<lxCommand name="\Acfp" 
+			desc="Acronym full, plural and capital letter"
+			parameters="1"
+		/>
+	</lxPackage>
+	
+	<lxPackage name="booktabs"
+		path=""
+		desc="Extended rulers within tables">
+		<lxCommand name="\hline"
+			desc="Horizontal line"
+		/>
+		<lxCommand name="\cmidrule"
+			desc="Centered midrule"
+			parameters="1"
+		/>
+		<lxCommand name="\toprule"
+			desc="Top ruler"
+		/>
+		<lxCommand name="\midrule"
+			desc="Middle ruler"
+		/>
+		<lxCommand name="\bottomrule"
+			desc="Bottom ruler"
+		/>
+	</lxPackage>
+</lxCollection>

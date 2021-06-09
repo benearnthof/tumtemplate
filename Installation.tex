@@ -1,0 +1,362 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Technical University of Munich
+%% Institute for Electrical Energy Storage Technology
+%% 
+%% Version:    03. August 2020
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{Installing and Configuring {\LaTeX}}
+\label{cha:installation}
+For \Latex to work, a distribution must be installed. This provides the necessary commands to create a document. We will install the MiKTeX distribution here. In addition to this, we will install and configure an editor to facilitate the editing of \Latex documents.
+
+
+
+\section{Installing a MiKTeX Distribution}
+\label{sec:miktex}
+MiKTeX is a \Latex distribution that provides and manages the function packages of \Latex. In a way, MiKTeX is the operating system for \Latex.
+\begin{enumerate}
+	\item From the homepage \url{https://miktex.org/download} we download the installer (not the Portable Edition, not the Command-Line Installer).
+	\item MiKTeX should be installed on this computer for any user. In other words: The path must be visible for every user. A visible path is important to configure the editor \gls{gls:txc} correctly. So we choose \textit{Install MiKTeX for anyone who uses this computer} and leave the installation path unchanged at 
+	\begin{lstlisting}[caption=Installation path of the MiKTeX distribution]
+		C:\Program Files\MiKTeX 2.9
+	\end{lstlisting}
+	\item We select A4 as the preferred paper format. Missing packages should be installed automatically without being asked explicitly.
+	\item Once the installation is complete, we launch the \textit{MiKTeX Console}. Here we are prompted to switch to administrator mode within the application. This allows us to check for updates and install them. 
+	\item We now have a working \Latex distribution installed on our computer.
+\end{enumerate}
+
+MiKTeX already comes with the editor TeXworks. It can be found in the Windows start menu and in the folder MiKTeX. Since TeXworks itself already has an integrated \acs{acr:pdf} viewer, no additional \acs{acr:pdf} viewer is needed. With this editor we can edit and create our documents. However, due to the limited functionality, a different editor is recommended for extensive use.
+
+Among other things MiKTeX also represents a working directory of \Latex. Therefore the \gls{gls:ees} template can be integrated centrally. For example we can create a new folder \texttt{tumees} and copy the class \classfile and the folder \logodir into it. In our example, the folder must be created here according to the chosen installation path:
+
+\begin{lstlisting}[caption={Integration path for the \gls{gls:ees} template}]
+	C:\Program Files\MiKTeX 2.9\tex\latex\tumees
+\end{lstlisting}
+
+This means that the templates are stored centrally in one place and do not have to be in the project folder of each \Latex document. In addition, adjustments can also be made from a central location and will affect all documents that use these classes during the next compilation process.
+
+It is important that the MiKTeX database is updated after we have copied the folder and files. Otherwise the newly created folder will remain invisible to MiKTeX. In the MiKTeX Console we can update the database via the menu \textit{Tasks $\rightarrow$ Refresh file name database}.
+
+Despite the advantage of a central repository for the class, this procedure also has a disadvantage. If projects or documents are worked on in a team, and different members have different versions of the class (or have not made them known to the distribution at all), the compilation process may fail. In such a case, it is better to store all files and resources locally in the project folder.
+
+
+
+\section{Installing an Editor}
+\label{sec:editor}
+Editors make it easier to use the otherwise unwieldy \TeX and \Latex commands. They also offer further possibilities such as automatic markup, structure views, formatting assistance \etc Here, we will discuss the two editors \gls{gls:txs} and \gls{gls:txc}. Of course, it is not necessary to use both, one is perfectly sufficient. Neither of them works as desired without further configuration. Neither of them offers all functions. So it's your personal preference that decides which is the better editor.
+
+%Eine persönliche Meinung des Autors:
+%
+%\bgroup
+%\setlength\beforeepigraphskip{0pt} % Abstand vor Zitat
+%\hypersetup{hidelinks}
+%\epigraph{Beide Editoren können \Latex-Dokumente erstellen. Sie erfüllen also ihre Minimalanforderungen. Meiner Meinung nach bietet das \gls{gls:txs} eine größere Interaktivität mit dem Quelltext als das \gls{gls:txc}. Insbesondere bei der automatischen Vervollständigung von Befehlen ist das \gls{gls:txs} einfacher in der Handhabung. Außerdem enthält das \gls{gls:txs} einen integrierte Vorschau der Dokumente. Für das \gls{gls:txc} muss ein zusätzlicher \acs{acr:pdf}-Viewer installiert werden. Andererseits kann das \gls{gls:txs} Glossare nicht ohne zusätzliche Installation einer Perl-Distribution erstellen. Hier muss beim \gls{gls:txc} lediglich eine Option angepasst werden. Außerdem fühlt sich der Kompilierungsvorgang im \gls{gls:txc} schneller an als im \gls{gls:txs}. Persönlich nutze ich lieber das \gls{gls:txs}.}{Axel Durdel}
+%\egroup
+
+
+
+
+\subsection{Installing \gls*{gls:txs}}
+\label{sec:txs}
+\begin{enumerate}
+	\item From the homepage \url{https://www.texstudio.org/} we download the installer (not the portable edition)
+	\item Since we already have MiKTeX installed on the computer for each user, we do the same for \gls{gls:txs}. So we leave the installation path at the default value.
+	\begin{lstlisting}[caption=Installation path for \gls{gls:txs}]
+		C:\Program Files (x86)\texstudio
+	\end{lstlisting}
+	\item After the installation is complete, we can open \gls{gls:txs}. Since we first installed MiKTeX and then \gls{gls:txs}, \gls{gls:txs} usually finds the distribution itself and does the configuration. There are two ways to verify this.
+	\begin{enumerate}
+		\item Create a document to test the functionality. To do this, we can create a new document via \textit{file $\rightarrow$ New} and copy the document from \autoref{lst:my first document part 2}. The green double arrow in the toolbar starts the compilation process. Provided the process ends without errors, the document will be displayed afterwards.
+		\item We check the settings of \gls{gls:txs}. To do this we choose \textit{Options $\rightarrow$ Configure TeXstudio}. There we navigate to the tab \textit{Commands}. The fourth entry \LuaLaTeX\footnote{We use {\LuaLaTeX} instead of the standard Pdf\LaTeX, because {\LuaLaTeX} offers some advantages and innovations. For example, the use of system fonts as described in \autoref{sec:font}} must show the following (see \autoref{fig:txs:profile}):
+		
+		\begin{minipage}{\linewidth}
+			\begin{lstlisting}[language=none, caption={[Settings for \gls{gls:txs} -- {\LuaLaTeX} Process]Settings for the use of \texttt{lualatex.exe} in \gls{gls:txs}, located at \textit{Options $\rightarrow$ Configure TeXstudio $\rightarrow$ Commands}. \label{lst:editor:txs:lualatex}}]
+			lualatex.exe -synctex=1 -interaction=nonstopmode %.tex
+			\end{lstlisting}
+		\end{minipage}%
+		
+		The standard compiler must also be adjusted. In the \gls{gls:txs} settings, we open the \textit{Build} tab and select the following as the default compiler (see \autoref{fig:txs:biber}): 
+		
+		\begin{minipage}{\linewidth}
+			\begin{lstlisting}[language=none, caption={[Settings for \gls{gls:txs} -- {\LuaLaTeX} Compiler]Settings for using \texttt{lualatex.exe} as the default compiler in \gls{gls:txs}, located at \textit{Options $\rightarrow$ Configure TeXstudio $\rightarrow$ Build}. \label{lst:editor:txs:lualatex_2}}]
+			txs:///lualatex
+			\end{lstlisting}
+		\end{minipage}%
+		
+		\begin{minipage}{\linewidth}
+			\centering
+			\includegraphics[width=0.8\linewidth]{IMG/txsCommands_EN.png}
+			\captionof{figure}[Settings for \gls{gls:txs} -- \LuaLaTeX]{Settings for the use of \texttt{lualatex.exe} in \gls{gls:txs}, to be found under \textit{Options $\rightarrow$ Configure TeXstudio}.}
+			\label{fig:txs:profile}
+		\end{minipage}%
+	\end{enumerate}
+	\item To make the character encoding of the document match the encoding of the \gls{gls:ees} template, we select \gls{gls:utf8} as the character encoding for new documents in the lower right corner of the editor. This should correctly display all umlauts, special characters, \etc If characters are not displayed as desired, this could be due to a wrong character encoding of the \texttt{.tex} document.
+	\item Now we can create documents with \gls{gls:txs}.
+\end{enumerate}
+
+
+
+
+\subsubsection{\gls*{gls:txs} -- Auto-completion}
+\label{sec:txs:autocomplete}
+The auto-completion function in \gls{gls:txs} allows you to have commands completed automatically.As soon as a command is typed, e.g. \lstinline|\beg| to start an environment, a drop down list with appropriate suggestions is automatically opened.  You can scroll through the list using the arrow keys and confirm the current selection with the tabulator. Pressing the escape key closes the menu. The menu can be reopened at almost any cursor position with the combination Ctrl+Space.
+
+
+
+
+\subsubsection{\gls*{gls:txs} -- Clean Auxiliary Files}
+\label{sec:txs:auxFiles}
+A useful tool is to clean up the auxiliary files. This will delete all temporary files, forcing a complete compilation the next time they are created. Often, this can repair faulty or incompletely compiled documents. The function can be found in \gls{gls:txs} under \textit{Tools $\rightarrow$ Clean auxiliary files\ldots}. Corresponding adjustments as to which files are considered temporary and thus should be deleted can be made from the same using the text field \textit{File Extensions}. If the \textit{glossaries} package is used, it is advisable to manually delete the files of type \texttt{.acn}, \texttt{.acr}, \texttt{.alg}; \texttt{.glg}, \texttt{.glo}, \texttt{.gls}, \texttt{.slg}, \texttt{.slo} and \texttt{.sls} to ensure that the directories are updated correctly. For the \textit{listings} package, \texttt{.lol} must be deleted. For the list of ToDo tasks from the \textit{todonotes} package, \texttt{.tdo} must be deleted. To ensure that the possibly incorrect table of contents is also recreated, \texttt{.toc} must be deleted.
+
+
+
+
+\subsubsection{\gls*{gls:txs} -- Configuring Glossaries}
+\label{sec:txs:glossary}
+In order for the \gls{gls:txs} to create a glossary, a list of acronyms, and a list of symbols using the \textit{glossaries} package, the additional Perl software must be installed. The current version can be obtained from ActiveState via \url{https://www.activestate.com/products/perl/}. However, a login is required for this. Alternatively, version 5.28.1.0000 can be found on the exchange folder of the institute, from where the installation file can be copied. The file \verb|ActivePerl-5.28.1.0000-MSWin32-x64-865dc3eb.exe| can be found at
+
+\begin{lstlisting}[caption=Source path of Perl on the institute server]
+	Q:\10 Studenten\00 Informationen für studentische Arbeiten\00 Vorlagen\EES LaTeX Dokumentklassen\
+\end{lstlisting}
+
+For the installation of Perl we choose \ldots 
+\begin{enumerate}
+	\item \ldots Choose Setup Type: Typical
+	\item \ldots Choose Setup Options: \\
+	Add Perl to the PATH environment variable: Yes\\
+	Create Perl file extension association: Yes\\
+	Install Komodo IDE 21-day Trial: No
+\end{enumerate}
+
+The default installation path is \verb|C:\Perl64|, which is fine.
+
+If we close \gls{gls:txs} and restart it, Perl is detected. Perl is called via \verb|makeglossaries.exe|. This command is not executed by default and must therefore be called manually \textit{Tools $\rightarrow$ Glossary} if necessary. 
+
+
+
+
+\subsubsection{\gls*{gls:txs} -- Configuring Bibliography}
+\label{sec:txs:bibliography}
+We can now create our document including glossaries. Usually, the end of a document is the bibliography. We do not want to use the standard compiler \textit{bibtex} \cite{CTANTeam.2020ae} One reason for this is that Bib\TeX is limited to ASCII characters without umlauts and special characters. Bib\TeX is used in combination with \textit{natbib} \cite{CTANTeam.2020ad}. In contrast, the \textit{biber} compiler \cite{CTANTeam.2020af}, which was developed from scratch, brings some new features and improvements that are hardly different in their usability. For example, the included literature files may contain special characters and umlauts. Prerequisite is the \gls{gls:utf8} encoding. Especially for the use of \textit{biblatex} \cite{CTANTeam.2020ag} instead of \textit{natbib}, \textit{biber} is recommended instead of \textit{bibtex} as compiler.
+
+To do this we have to set the entry \textit{Standard Bibliography Tool} to \textit{biber} under \textit{Options $\rightarrow$ Configure TeXstudio} in the tab \textit{Build} (see \autoref{fig:txs:biber}). Analogous to the glossary, the bibliography is not created automatically. Via \textit{Tools $\rightarrow$ Bibliography} the process is called manually.
+
+\begin{figure}[htb]
+	\includegraphics[width=0.8\linewidth]{IMG/txsBiber_EN.png}
+	\caption[Settings for \gls{gls:txs} -- Biber]{Settings for the use of Biber in \gls{gls:txs}, to be found under \textit{Options $\rightarrow$ Configure TeX\-studio}.}
+	\label{fig:txs:biber}
+\end{figure}
+
+
+
+
+\subsubsection{\gls*{gls:txs} -- Adding Custom Commands}
+\label{sec:txs:customCommands}
+To avoid having to call every process manually, a separate command can be defined which automatically executes the necessary processes one after the other. Under \textit{Options $\rightarrow$ Configure TeXstudio } a user command can be added to the \textit{Build} tab. For example, for a complete document the command \textit{Complete} can be defined.  It must look like this (see \autoref{fig:txs:biber}).
+
+\begin{lstlisting}[caption=Command for a complete compilation in \gls{gls:txs}.]
+	txs:///compile | txs:///makeglossaries | txs:///biber | txs:///compile | txs:///compile | txs:///view
+\end{lstlisting}
+
+If we close the options with \textit{OK} the command is accepted. We open the options again. On the \textit{Shortcuts} tab, the command just defined can now be found under \textit{Menus $\rightarrow$ Tools $\rightarrow$ User}. We assign a new hotkey in the third column \textit{Current Shortcut}. Since the simple, fast compilation in \gls{gls:txs} is done by default using the F5 key, Ctrl+F5 seems to be the obvious shortcut here (see \autoref{fig:txs:customCommands}).
+
+\begin{figure}[htb]
+	\includegraphics[width=0.8\linewidth]{IMG/txsCustomCommands_EN_2.png}
+	\caption[Settings for \gls{gls:txs} -- Shortcuts for User Commands]{Settings for the assignment of keyboard shortcuts for using user commands in \gls{gls:txs}, to be found under \textit{Options $\rightarrow$ Configure TeXStudio}.}
+	\label{fig:txs:customCommands}
+\end{figure}
+
+
+
+
+\subsection{Installing \gls*{gls:txc}}
+\label{sec:txc}
+\begin{enumerate}
+	\item We download the installer from the homepage \url{https://www.texniccenter.org/download/}. On the page we see that a \Latex distribution is necessary. We already have one. Also, a \ac{acr:pdf} viewer is necessary. We will install it after \gls{gls:txc}.
+	\item For the installation path we choose a path without spaces. This is important so that the subsequent configuration will actually work. For the installation path we choose
+	
+	\begin{minipage}{\linewidth}
+		\begin{lstlisting}[caption=Installation path for \gls{gls:txc}]
+		C:\TeXnicCenter
+		\end{lstlisting}
+	\end{minipage}%
+	\item We can leave the components to be installed unchanged at \textit{Typical (Recommended)}. Therefore, we install \textit{Help Files} and \textit{LaTeX Templates} completely. In addition we select the entries \textit{English} and \textit{German} from the category \textit{Dictionaries}.
+	\item Whether a folder should be created in the Windows start menu is up to you. It is also up to you to decide whether to create a desktop shortcut, to add the \gls{gls:txc} to the \textit{Send to} menu, and to use the \gls{gls:txc} as the default editor for \Latex files.
+	\item When we start \gls{gls:txc}, a configuration wizard welcomes us.
+	\begin{enumerate}
+		\item If MiKTeX was installed for all users of the computer, the \gls{gls:txc} can recognize the distribution and make the settings automatically. We choose this option.
+		\item MiKTeX can also be used to create PostScript files. However, we do not make use of this option. Therefore, we can leave these fields empty and close the wizard in the next window.
+	\end{enumerate} 
+	\item Finally, we define the process for the (La)TeX compiler and the Biber and MakeIndex compiler correctly in the output profile. This is necessary for the document to be created properly and for some packages to work correctly. Under \textit{Build $\rightarrow$ Define Output Profiles\ldots} we select the profile \textit{LuaLaTeX $\Rightarrow$ PDF} and open the tab \textit{(La)TeX}. We select the check box \textit{Run (La)TeX in this profile} and remove the check box \textit{Stop compilation on LaTeX error}. We also uncheck \textit{Do not use MakeIndex in this profile} and define the paths and arguments for (La)TeX, BibTeX, and MakeIndex as follows (see \autoref{fig:txc:profile})
+	
+	\begin{minipage}{\linewidth}
+		\begin{lstlisting}[language=none, caption={[Settings for \gls{gls:txc} -- {\LuaLaTeX} Process, Compiler, Biber, MakeIndex]Settings for the use of \texttt{lualatex.exe}, \texttt{biber.exe}, and \texttt{makeindex.exe} in \gls{gls:txc}, to be found under \textit{Build $\rightarrow$ Define Output Profiles\ldots}. \label{lst:editor:txc:lualatex}}]
+		Path and arguments to the (La)TeX compiler:
+		C:\Program Files\MiKTeX 2.9\miktex\bin\x64\lualatex.exe
+		-synctex=-1 -interaction=nonstopmode "%Wm"
+		
+		Path and arguments to the BibTeX compiler:
+		C:\Program Files\MiKTeX 2.9\miktex\bin\x64\biber.exe
+		"%tm"
+		
+		Path and arguments to the MakeIndex compiler:
+		C:\Program Files\MiKTeX 2.9\miktex\bin\x64\makeindex.exe
+		"%tm.idx" -t "%tm.ilg" -o "%tm.ind"
+		\end{lstlisting}
+	\end{minipage}%
+	
+	\begin{minipage}{\linewidth}
+		\centering
+		\includegraphics[width=0.6\linewidth]{IMG/txcMakeindex_EN.png}
+		\captionof{figure}[Settings for \gls{gls:txc} -- {\LuaLaTeX} Process, Compiler, Biber, MakeIndex]{Settings for the use of \texttt{lualatex.exe}, \texttt{biber.exe}, and \texttt{makeindex.exe} in \gls{gls:txc}, to be found under \textit{Build $\rightarrow$ Define Output Profiles\ldots}.}
+		\label{fig:txc:profile}
+	\end{minipage}%
+	\item To make the character encoding of the document match the encoding of the \gls{gls:ees} template, we select \gls{gls:utf8} as the character encoding for new documents. The current character encoding of the document is displayed in the lower right corner of the window. To change this, we have to save the document again and select the encoding. Under \enquote{File $\rightarrow$ Save As} we can select the file path and name as well as the format and encoding. This should display all umlauts, special characters and the like correctly. If characters are not displayed as desired, this could be due to a wrong character encoding of the \texttt{.tex} document.
+	
+	 \item We have installed and configured the \gls{gls:txc}. As with \gls{gls:txs}, we can use a test document to check the installation. Contrary to \gls{gls:txs}, in \gls{gls:txc} projects are created. Under \textit{File $\rightarrow$ New $\rightarrow$ Project} we create a new, empty project and copy the document from \autoref{lst:my first document part 2}. Before we create the document, we have to change the output profile. We do not want to create a \verb|.dvi| file but \verb|.pdf| file instead. The toolbar contains a drop down menu that we change from \textit{LaTeX $\Rightarrow$ DVI} to \textit{LuaLaTeX $\Rightarrow$ PDF}. To the right of this drop down menu is the \textit{Build Output} button with the \includegraphics[height=0.8\baselineskip]{IMG/txcCreateDocument.png} icon. If the \gls{gls:txc} was successfully installed, we should find a \ac{acr:pdf} file in the project folder afterwards.
+\end{enumerate}
+
+
+
+
+\subsubsection{\gls*{gls:txc} -- Configuring \gls*{gls:sumatra}}
+\label{sec:txc:sumatra}
+Since the \gls{gls:txc} does not come with an integrated \ac{acr:pdf} viewer, we will install \gls{gls:sumatra}. \gls{gls:sumatra} is a \ac{acr:pdf} viewer that works faster than, say, Adobe Acrobat Reader due to its slim design. In addition, \gls{gls:sumatra} allows you to search back and forth between \ac{acr:pdf} and the editor.
+
+\begin{enumerate}
+	\item From the homepage \url{https://www.sumatrapdfreader.org/download-free-pdf-viewer.html} we download the installer (not the portable version)
+	\item In the installer we open the options and adjust them. The installation path is important, because we will need it later.
+	\begin{lstlisting}[caption=Installation path for \gls{gls:sumatra}]
+		C:\Program Files\SumatraPDF
+	\end{lstlisting}
+\end{enumerate}
+
+When the installation is complete, we can define a new output profile in \gls{gls:txc}. This tells \gls{gls:txc} that we want to use \gls{gls:sumatra} for the preview. At the same time we define the forward and backward search. This allows to quickly jump back and forth between the corresponding places in the \ac{acr:pdf} and source code.
+\begin{enumerate}
+	\item In \gls{gls:txc} we choose \textit{Build $\rightarrow$ Define Output Profiles}.
+	\item We select the entry \textit{LuaLaTeX $\Rightarrow$ PDF} from the list of available profiles and copy it. As new name we choose \textit{LuaLaTeX $\Rightarrow$ PDF (Sumatra)}.
+	\item In the \textit{Viewer} tab, a few adjustments must to be made. It is important that the application path of \gls{gls:sumatra}.exe and of \gls{gls:txc}.exe are correct. These must be adjusted depending on the selected installation path (see \autoref{fig:txc:sumatra}).
+	
+	\begin{minipage}{\linewidth}
+		\begin{lstlisting}[language=none, caption={[Settings for \gls{gls:txc} -- \gls{gls:sumatra} as \ac{acr:pdf}-Viewer]Settings in \gls{gls:txc} for the use of \gls{gls:sumatra} as \ac{acr:pdf}-Viewer including forward and backward search, to be found on the tab \textit{Viewer} under \textit{Build $\rightarrow$ Define Output Profiles}.}]
+		Executable path:
+		"C:\Program Files\SumatraPDF\SumatraPDF.exe" -inverse-search "\"C:\TeXnicCenter\TeXnicCenter.exe\" /ddecmd \"[goto('%f', '%l')]\""
+		
+		View project's output: DDE-Kommando
+		Command: "%bm.pdf"
+		Server: SUMATRA
+		Topic: control
+		
+		Forward search: DDE-Kommando
+		Command: [ForwardSearch("%bm.pdf","%Wc",%l,0,0,1)]
+		Server: SUMATRA
+		Topic: control
+		
+		Close document before running (La)TeX: Do not close
+		\end{lstlisting}
+	\end{minipage}%
+	
+	\begin{minipage}{\linewidth}
+		\centering
+		\includegraphics[width=0.8\linewidth]{IMG/txcSumatra_EN.png}
+		\captionof{figure}[Settings for \gls{gls:txc} -- \gls{gls:sumatra} as \ac{acr:pdf}-Viewer]{Settings in \gls{gls:txc} for the use of \gls{gls:sumatra} as \ac{acr:pdf}-Viewer including forward and backward search, to be found on the tab \textit{Viewer} under \textit{Build $\rightarrow$ Define Output Profiles}.}
+		\label{fig:txc:sumatra}
+	\end{minipage}%
+\end{enumerate}
+
+
+
+\vfill
+\subsubsection{\gls*{gls:txc} -- Auto-completion}
+\label{sec:txc:autocomplete}
+The auto-completion recognizes predefined commands and can complete them. This means that not every command has to be written out. As soon as \gls{gls:txc} recognizes the command, it is displayed. The key combination Ctrl+Spaceaccepts the suggested command. All commands can be found in \texttt{.xml} files in the \gls{gls:txc} installation path under \verb|.\Packages\|. Own commands can be defined here and are then automatically available. If, for example, the \textit{tabularx} environment is to be defined, a new \texttt{lxEnvironment} can be added to the \texttt{User.xml}:
+\vfill
+\begin{lstlisting}[language=none, caption={Defining a new shortcut for environments in \gls{gls:txc}}]
+	<lxEnvironment name="tabularx" 
+		parameters="1" 
+		desc="Provides a tabularx environment"
+		icon="format.bmp"
+		index="10"
+		expafter="}{\textwidth}{LCR}&#xA;	&#xA;\end{tabularx}" 
+	expbefore="\begin{"
+	/>
+\end{lstlisting}
+
+\vfill\newpage
+Basic commands such as for the \textit{siunitx} package can be defined as \texttt{lxCommand}:
+
+\begin{lstlisting}[language=none, caption={Defining a new shortcut for commands in \gls{gls:txc}}]
+	<lxCommand name="\SI" 
+		parameters="2"
+		desc="SIUnitx - Value and Unit"
+	/>
+\end{lstlisting}
+
+The easiest way to understand how the \texttt{User.xml} file should be structured is to look at an existing file. These can also be copied and emptied down to the bare essentials. A selection of common commands can be found in Appendix~\ref{app:txccommands}. You can also find a lot more information on this topic on the net, e.g. on StackExchange.com\footnote{The answer from Stefan Kottwitz here \url{https://tex.stackexchange.com/a/17246}} or on Latex.org\footnote{The answer of houstontyoung here \url{https://latex.org/forum/viewtopic.php?f=36&t=11055}}.
+
+
+
+
+\subsubsection{\gls*{gls:txc} -- Clean Auxiliary Files}
+\label{sec:txc:auxFiles}
+A useful tool is to clean up the project. This will delete all temporary files, forcing a complete compilation the next time they are created. Often, this can repair faulty or incompletely compiled documents. In \gls{gls:txc} the function can be found under \textit{Build $\rightarrow$ Clean Project}. Corresponding adjustments as to which files are considered temporary and which need to be protected can be made under \textit{Tools $\rightarrow$ Options} on the \textit{Clean} tab. If the \textit{glossaries} package is used it is advisable to add the file extensions \texttt{.acn}, \texttt{.acr}, \texttt{.alg}, \texttt{.glg}, \texttt{.glo}, \texttt{.gls}; \texttt{.slg}, \texttt{.slo} and \texttt{.sls}. For the \textit{listings} package \texttt{.lol} must be added. For the list of ToDo tasks from the \textit{todonotes} package, \texttt{.tdo} must be added. To rebuild the possibly corrupt table of contents, \texttt{.toc} must be added.
+
+
+
+
+\subsubsection{\gls*{gls:txc} -- Configuring Glossaries}
+\label{sec:txc:glossary}
+In order for the \gls{gls:txc} to be able to create a glossary, a list of acronyms, and a list of symbols using the \textit{glossaries} package, the output profile must be adjusted. Under \textit{Build $\rightarrow$ Define Output Profiles} we first select the appropriate profile (here \textit{LuaLaTeX $\Rightarrow$ PDF (Sumatra)}). Three processors must be added to the \textit{Postprocessor} tab (see \autoref{fig:txc:processors}).
+
+\begin{lstlisting}[language=none, caption={[Settings for \gls{gls:txc} -- Processors for the package \textit{glossaries}]Passing parameters to \textit{MakeIndex} for using the \textit{glossaries} package in \gls{gls:txc}.}]
+	Glossary: Path and arguments
+	C:\Program Files\MiKTeX 2.9\miktex\bin\x64\makeindex.exe
+	-s "%tm.ist" -t "%tm.glg" -o "%tm.gls" "%tm.glo"
+	
+	Acronyms: Path and arguments
+	C:\Program Files\MiKTeX 2.9\miktex\bin\x64\makeindex.exe
+	-s "%tm.ist" -t "%tm.alg" -o "%tm.acr" "%tm.acn"
+	
+	Symbols: Path and arguments
+	C:\Program Files\MiKTeX 2.9\miktex\bin\x64\makeindex.exe
+	-s "%tm.ist" -t "%tm.slg" -o "%tm.sls" "%tm.slo"
+\end{lstlisting}
+
+\begin{figure}[htb]
+	\includegraphics[width=0.8\linewidth]{IMG/txcProcessors_EN.png}
+	\caption[Settings for \gls{gls:txc} -- Processors for the package \textit{glossaries}]{Processor settings for using the package \textit{glossaries} in \gls{gls:txc}, to be found on the \textit{Postprocessor} tab under \textit{Build $\rightarrow$ Define Output Profiles}.}
+	\label{fig:txc:processors}
+\end{figure}
+
+If we now create a document, the necessary processes for the correct integration of the glossary, list of acronyms, and list of symbols run in the background. We only have to make sure that the \Latex document is correct.
+
+
+
+
+\subsubsection{\gls*{gls:txc} -- Configuring Bibliography}
+\label{sec:txc:bibliography}
+Bib\TeX, Bib\Latex, Biber? What is that? You can find more information on this in \autoref{sec:txs:bibliography}.
+
+To customize \gls{gls:txc} we have to open the settings under \textit{Build $\rightarrow$ Define Output Profile} in the tab \textit{(La)TeX}. Here we modify the \textit{BibTeX} entry. We remove the check mark \textit{Do not use BibTeX in this profile}. For the path and the arguments we pass the following (see also \autoref{fig:txc:profile}):
+
+\begin{lstlisting}[language=none, caption=Configuration of the \textit{biber} compiler as replacement for Bib\TeX]
+	Path and arguments to the BibTex compiler:
+	C:\Program Files\MiKTeX 2.9\miktex\bin\x64\biber.exe
+	"%tm"
+\end{lstlisting}
+
+
+
+
+\section{Installing the required System Fonts}
+\label{sec:font}
+By choosing {\LuaLaTeX} in \autoref{sec:txs} or \autoref{sec:txc} it is possible to use system fonts directly. In contrast to the use of {Pdf\LaTeX} no so-called \enquote{font definition} (\texttt{.fd}) files have to be written or provided to use a font in the document. It is sufficient to install the font on the target device on which the document is created. We have already defined {\LuaLaTeX} as the default compiler. So in order for the \gls{gls:ees} template to work, we still need to install the required fonts.
+
+Four different fonts are available for the \gls{gls:ees} template (see ~\autoref{sec:documentTypes}). The two fonts Latin Modern Roman (\texttt{lmr}) and Latin Modern Sans Serif (\texttt{lmss}) can be provided via packages and therefore do not need to be installed explicitly. The Times Roman font (\texttt{times}) is pre-installed on Windows devices. Therefore, it is assumed that it is also available and does not need to be installed\footnote{At the time of writing this template, testing under macOS was not possible. Whether and to what extent the Times Roman font works for the \gls{gls:ees} template cannot be said. In case of problems: \href{mailto:axel.durdel@tum.de}{axel.durdel@tum.de}}. Only the TUM Neue Helvetiva font(\texttt{helvet}) is not pre-installed. 
+
+First we download the font of the TUM corporate design. For this we have to log in with our TUM credentials.\\
+\url{https://portal.mytum.de/corporatedesign/vorlagen/index_html/vorlagen/index_schrift} (sorry, no english version available)
+
+As soon as the download is complete, we unzip the .zip file. The new folder contains four TrueType font files (\texttt{.ttf}). Double-clicking on the respective file opens a preview of the font. At the top, the preview can be printed out with a click on the button, and there is also the possibility of installation. 
+
+The installation is now complete. The font TUM Neue Helvetica is now available as a system font on our computer and can therefore be used in \Latex, but also in Word and other typesetting programs.
